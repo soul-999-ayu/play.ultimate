@@ -15,15 +15,11 @@
 
 .mainDiv{
     width: 100%;
-    height: 100%;
     background: url("images/background.png");
     background-size: cover;
     background-position: right 30px center;
-    /* backi */
-    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
-    /* margin-left: auto; */
 }
 
 .loginDiv{
@@ -35,7 +31,54 @@
     display: flex;
     justify-content: center;
 }
-/* 
-h1{
-    font-family: ;
-} */
+
+.headerDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.formDiv{
+    margin-top: -50px;
+    width: 100%;
+}
+
+.formDiv h2{
+    font-size: 50px;
+    margin-top: 10px;
+}
+
+.formDiv input{
+    width: 100%;
+    height: 50px;
+    font-size: 25px;
+    border-radius: 20px;
+    margin-top: -30px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.formDivButton{
+    display: flex;
+    justify-content: center;
+}
+
+.formDivButton button{
+    font-size: 30px;
+    width: 200px;
+    height: 50px;
+    margin-top: 25px;
+    padding: 0px;
+    background-color: #edb1f1;
+    border-radius: 10px;
+}
+
+.formDivButton button:hover{
+    background-color: #d59bf6;
+}
+
+
+.formDiv h3{
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 50px;
+}
