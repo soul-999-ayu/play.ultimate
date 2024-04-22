@@ -1,0 +1,190 @@
+var script = document.createElement("script");  // create a script DOM node
+    script.src = 'https://smtpjs.com/v3/smtp.js';  // set its src to the provided URL
+   
+    document.head.appendChild(script); 
+
+var otp;
+var username;
+
+function loginLayoutFunction(){
+    console.log('Login');
+    document.getElementById('email').style.display = 'block';
+    document.getElementById('emailInput').style.display = 'block';
+    document.getElementById('password').style.display = 'block';
+    document.getElementById('passwordInput').style.display = 'block';
+    document.getElementById('name').style.display = 'none';
+    document.getElementById('nameInput').style.display = 'none';
+    document.getElementById('secret').style.display = 'none';
+    document.getElementById('secretInput').style.display = 'none';
+    document.getElementById('button').innerHTML = 'Login';
+    document.getElementById('button').setAttribute('onclick', 'login()');
+    document.getElementById('bottomText').innerHTML = 'Not one of us? <a onclick="registerLayoutFunction()">Join Us</a>';
+}
+
+function registerLayoutFunction(){
+    console.log('Register');
+    document.getElementById('name').style.display = 'block';
+    document.getElementById('nameInput').style.display = 'block';
+    document.getElementById('secret').style.display = 'block';
+    document.getElementById('secretInput').style.display = 'block';
+    document.getElementById('button').innerHTML = 'Register';
+    document.getElementById('button').setAttribute('onclick', 'register()');
+    document.getElementById('bottomText').innerHTML = 'One of us? <a onclick="loginLayoutFunction()">Login with credentials</a>';
+}
+
+function register(){
+    if(document.getElementById('button').value=='register'){
+        console.log("Register Function");
+        var name = document.getElementById('nameInput');
+        var email = document.getElementById('emailInput');
+        var password = document.getElementById('passwordInput');
+        var secret = document.getElementById('secretInput');
+        if(name.value.toString() == '' || email.value.toString() == '' || password.value.toString() == '' || secret.value.toString() == ''){
+            document.getElementById("AlertMessage").style.display = "block";
+            document.getElementById('AlertContent').innerHTML = "The form is not completely filled!";
+        }
+        else if(!email.value.toString().includes('@')){
+            document.getElementById("AlertMessage").style.display = "block";
+            document.getElementById('AlertContent').innerHTML = "Invalid email address provided!";
+        }
+        else if(password.value.toString().length<8){
+            document.getElementById("AlertMessage").style.display = "block";
+            document.getElementById('AlertContent').innerHTML = "Password must be of at least 8 characters!";
+        }
+        else{
+            let emailFound = 'no';
+            // https://script.google.com/macros/s/AKfycbzJbT3vzNGUMnO6F6gv5ICCl8USr_M54mtQV4E-g4nkKeOhCsC4P5cGB9eN_a3HZkRX/exec
+    
+            fetch('https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec')
+            .then(res => res.json())
+            .then(data => {
+                // let tr = data.content.reduce((prev, cur) => {
+                //     let td = cur.map(e => `<td>${e}</td>`)
+                //     return prev + `<tr>${td.join("")}</tr>`
+                // }, "\r")
+                // document.querySelector("table").innerHTML = tr;
+                console.log(data['content']);
+                for(let i=1; i<data['content'].length; i++){
+                    // console.log(data["content"][i][0]);
+                    if(email.value.toString()==data["content"][i][0]){
+                        emailFound='yes';
+                    }
+                }
+    
+                if(emailFound=='no'){
+                    // EAA9DA0DAE37F35F373396815718611507D9
+                    username = document.getElementById('nameInput').value.toString();
+    
+                    document.getElementById('email').style.display = "none";
+                    document.getElementById('emailInput').style.display = "none";
+                    document.getElementById('password').style.display = "none";
+                    document.getElementById('passwordInput').style.display = "none";
+                    document.getElementById('secret').style.display = "none";
+                    document.getElementById('secretInput').style.display = "none";
+                    document.getElementById('name').innerHTML = "Enter OTP:";
+                    document.getElementById('nameInput').value = "";
+                    document.getElementById('nameInput').setAttribute('placeholder', "Don't forget to check spam folder");
+                    document.getElementById('bottomText').innerHTML = "<a onclick='resendOTP()'>Resend OTP</a>"
+    
+                    otp = Math.floor(Math.pow(10, 6-1) + Math.random() * (Math.pow(10, 6) - Math.pow(10, 6-1) - 1))
+                    // console.log(otp);
+                    Email.send({
+                        Host : "smtp.elasticemail.com",
+                        Username : "ayushkumar274549@gmail.com",
+                        Password : "EAA9DA0DAE37F35F373396815718611507D9",
+                        To : email.value.toString(),
+                        From : "ayushkumar274549@gmail.com",
+                        Subject : "OTP to signup for play.ultimate",
+                        Body : "Your OTP to join play.ultimate is "+otp
+                    }).then(
+                      message => {
+                        document.getElementById("AlertMessage").style.display = "block";
+                        document.getElementById('AlertContent').innerHTML = "OTP has been sent to your email address!";
+                    });
+
+                    document.getElementById('button').value='otp';
+                }
+                else{
+                    document.getElementById("AlertMessage").style.display = "block";
+                    document.getElementById('AlertContent').innerHTML = "User already exists!";
+                }
+                
+            });
+        }
+    }
+    else{
+        if(document.getElementById('nameInput').value.toString()==otp.toString()){
+
+            var email = document.getElementById('emailInput');
+            var password = document.getElementById('passwordInput');
+            var secret = document.getElementById('secretInput');
+
+            var form1 = document.createElement('form');
+            form1.id = "google-sheet";
+            var name1 = document.createElement('input');
+            name1.setAttribute('type', 'text');
+            name1.setAttribute('name', 'Name');
+            name1.setAttribute('value', username);
+            form1.appendChild(name1);
+    
+            var email1 = document.createElement('input');
+            email1.setAttribute('type', 'text');
+            email1.setAttribute('name', 'Email');
+            email1.setAttribute('value', email.value.toString());
+            form1.appendChild(email1);
+    
+            var password1 = document.createElement('input');
+            password1.setAttribute('type', 'text');
+            password1.setAttribute('name', 'Password');
+            password1.setAttribute('value', password.value.toString());
+            form1.appendChild(password1);
+    
+            var secret1 = document.createElement('input');
+            secret1.setAttribute('type', 'text');
+            secret1.setAttribute('name', 'Secret');
+            secret1.setAttribute('value', secret.value.toString());
+            form1.appendChild(secret1);
+    
+            // https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec'
+            
+    
+            // form.addEventListener('submit', e => {
+            //     e.preventDefault()
+                fetch(scriptURL, { method: 'POST', body: new FormData(form1)})
+                .then(response => {
+                    document.getElementById("AlertMessage").style.display = "block";
+                    document.getElementById('AlertContent').innerHTML = "Your registration details has been saved!<br>Please login to continue...";
+                    document.getElementById('Alertbutt').innerHTML = "Login";
+                    document.getElementById('Alertbutt').setAttribute('onclick', loginLayoutFunction());
+                })
+                .catch(error => console.error('Error!', error.message))
+            // })
+        }
+        else{
+            document.getElementById("AlertMessage").style.display = "block";
+            document.getElementById('AlertContent').innerHTML = "Invalid OTP!";
+        }
+    }
+}
+
+function resendOTP(){
+    var email = document.getElementById('emailInput');
+    Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "ayushkumar274549@gmail.com",
+        Password : "EAA9DA0DAE37F35F373396815718611507D9",
+        To : email.value.toString(),
+        From : "ayushkumar274549@gmail.com",
+        Subject : "OTP to signup for play.ultimate",
+        Body : "Your OTP to join play.ultimate is "+otp
+    }).then(
+      message => {
+        document.getElementById("AlertMessage").style.display = "block";
+        document.getElementById('AlertContent').innerHTML = "OTP has been sent to your email address!";
+    });
+}
+
+function login(){
+    console.log("Login Function");
+}
