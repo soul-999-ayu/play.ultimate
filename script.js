@@ -1,13 +1,14 @@
-var script = document.createElement("script");  // create a script DOM node
-    script.src = 'https://smtpjs.com/v3/smtp.js';  // set its src to the provided URL
-   
-    document.head.appendChild(script); 
+var script = document.createElement("script");
+script.src = 'https://smtpjs.com/v3/smtp.js'; 
+document.head.appendChild(script); 
 
 var otp;
 var username;
 
 function loginLayoutFunction(){
     console.log('Login');
+    document.getElementById('button').value='register';
+    document.getElementById("AlertMessage").style.display = "none";
     document.getElementById('email').style.display = 'block';
     document.getElementById('emailInput').style.display = 'block';
     document.getElementById('password').style.display = 'block';
@@ -66,7 +67,7 @@ function register(){
                 console.log(data['content']);
                 for(let i=1; i<data['content'].length; i++){
                     // console.log(data["content"][i][0]);
-                    if(email.value.toString()==data["content"][i][0]){
+                    if(email.value.toString().toLowerCase()==data["content"][i][0].toLowerCase()){
                         emailFound='yes';
                     }
                 }
@@ -156,7 +157,7 @@ function register(){
                     document.getElementById("AlertMessage").style.display = "block";
                     document.getElementById('AlertContent').innerHTML = "Your registration details has been saved!<br>Please login to continue...";
                     document.getElementById('Alertbutt').innerHTML = "Login";
-                    document.getElementById('Alertbutt').setAttribute('onclick', loginLayoutFunction());
+                    document.getElementById('Alertbutt').setAttribute('onclick', 'loginLayoutFunction()');
                 })
                 .catch(error => console.error('Error!', error.message))
             // })
@@ -187,4 +188,47 @@ function resendOTP(){
 
 function login(){
     console.log("Login Function");
+    var email = document.getElementById('emailInput');
+    var password = document.getElementById('passwordInput')
+    if(email.value.toString()=='' || password.value.toString()==''){
+        document.getElementById("AlertMessage").style.display = "block";
+        document.getElementById('AlertContent').innerHTML = "The form is not completely filled!";
+    }
+    else{
+        var email1="";
+        var password1;
+
+        fetch('https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec')
+        .then(res => res.json())
+        .then(data => {
+            // let tr = data.content.reduce((prev, cur) => {
+            //     let td = cur.map(e => `<td>${e}</td>`)
+            //     return prev + `<tr>${td.join("")}</tr>`
+            // }, "\r")
+            // document.querySelector("table").innerHTML = tr;
+            console.log(data['content']);
+            for(let i=1; i<data['content'].length; i++){
+                // console.log(data["content"][i][0]);
+                if(email.value.toString().toLowerCase()==data["content"][i][0].toLowerCase()){
+                    email1=data["content"][i][0].toLowerCase();
+                    password1=data["content"][i][2];
+                    break;
+                }
+            }
+            if(email1==""){
+                document.getElementById("AlertMessage").style.display = "block";
+                document.getElementById('AlertContent').innerHTML = "User not found!";
+            }
+            else{
+                if(password.value.toString()!=password1){
+                    document.getElementById("AlertMessage").style.display = "block";
+                    document.getElementById('AlertContent').innerHTML = "Invalid password!";
+                }
+                else{
+                    console.log('done');
+                }
+            }
+            
+        });
+    }
 }
