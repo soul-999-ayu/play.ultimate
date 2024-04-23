@@ -136,11 +136,7 @@
 @media (min-width: 800px){
     .mainDiv {
         height: 170%;
-        /* width: 50%; */
     }
-    /* .formDiv h3{
-        color: red;
-    } */
 }
 
 
@@ -157,17 +153,12 @@
     .formDiv h2{
         font-size: 20px;
         margin-bottom: 28px;
-        /* margin-top: 10px; */
     }
     
     .formDiv input{
         width: 90%;
         height: 25px;
         font-size: 15px;
-        /* border-radius: 20px;
-        margin-top: -30px;
-        padding: 10px;
-        border: 1px solid black; */
     }
     .formDiv h3{
         font-size: 15px;
@@ -177,10 +168,6 @@
         font-size: 15px;
         width: 100px;
         height: 25px;
-        /* margin-top: 25px;
-        padding: 0px;
-        background-color: #edb1f1;
-        border-radius: 10px; */
     }
 
     .alignmentDiv{
