@@ -55,7 +55,9 @@ function register(){
         else{
             let emailFound = 'no';
             // https://script.google.com/macros/s/AKfycbzJbT3vzNGUMnO6F6gv5ICCl8USr_M54mtQV4E-g4nkKeOhCsC4P5cGB9eN_a3HZkRX/exec
-    
+            
+            document.getElementById("button").disabled = true; 
+
             fetch('https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec')
             .then(res => res.json())
             .then(data => {
@@ -71,7 +73,7 @@ function register(){
                         emailFound='yes';
                     }
                 }
-    
+
                 if(emailFound=='no'){
                     // EAA9DA0DAE37F35F373396815718611507D9
                     username = document.getElementById('nameInput').value.toString();
@@ -104,10 +106,12 @@ function register(){
                     });
 
                     document.getElementById('button').value='otp';
+                    document.getElementById("button").disabled = false; 
                 }
                 else{
                     document.getElementById("AlertMessage").style.display = "block";
                     document.getElementById('AlertContent').innerHTML = "User already exists!";
+                    document.getElementById("button").disabled = false; 
                 }
                 
             });
@@ -145,7 +149,9 @@ function register(){
             secret1.setAttribute('name', 'Secret');
             secret1.setAttribute('value', secret.value.toString());
             form1.appendChild(secret1);
-    
+            
+            document.getElementById("button").disabled = true; 
+
             // https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec'
             
@@ -157,6 +163,7 @@ function register(){
                     document.getElementById("AlertMessage").style.display = "block";
                     document.getElementById('AlertContent').innerHTML = "Your registration details has been saved!<br>Please login to continue...";
                     document.getElementById('Alertbutt').innerHTML = "Login";
+                    document.getElementById("button").disabled = false; 
                     document.getElementById('Alertbutt').setAttribute('onclick', 'loginLayoutFunction()');
                 })
                 .catch(error => console.error('Error!', error.message))
@@ -170,6 +177,7 @@ function register(){
 }
 
 function resendOTP(){
+    document.getElementById("button").disabled = true; 
     var email = document.getElementById('emailInput');
     Email.send({
         Host : "smtp.elasticemail.com",
@@ -183,6 +191,7 @@ function resendOTP(){
       message => {
         document.getElementById("AlertMessage").style.display = "block";
         document.getElementById('AlertContent').innerHTML = "OTP has been sent to your email address!";
+        document.getElementById("button").disabled = false; 
     });
 }
 
@@ -197,6 +206,10 @@ function login(){
     else{
         var email1="";
         var password1;
+        var name1;
+        var secret1;
+
+        document.getElementById("button").disabled = true; 
 
         fetch('https://script.google.com/macros/s/AKfycbxT31f6leVpCv00rioLhvP1eaPxH4G3eLoV5hPf-WvCE100l1TI-uOgSMsghbbGT0Mb/exec')
         .then(res => res.json())
@@ -212,20 +225,33 @@ function login(){
                 if(email.value.toString().toLowerCase()==data["content"][i][0].toLowerCase()){
                     email1=data["content"][i][0].toLowerCase();
                     password1=data["content"][i][2];
+                    name1=data["content"][i][1];
+                    secret1=data["content"][i][3];
                     break;
                 }
             }
             if(email1==""){
                 document.getElementById("AlertMessage").style.display = "block";
                 document.getElementById('AlertContent').innerHTML = "User not found!";
+                document.getElementById("button").disabled = false; 
             }
             else{
                 if(password.value.toString()!=password1){
                     document.getElementById("AlertMessage").style.display = "block";
                     document.getElementById('AlertContent').innerHTML = "Invalid password!";
+                    document.getElementById("button").disabled = false; 
                 }
                 else{
-                    console.log('done');
+                    document.getElementById('emailInput').style.display = 'none';
+                    document.getElementById('password').style.display = 'none';
+                    document.getElementById('passwordInput').style.display = 'none';
+                    document.getElementById('button').style.display = 'none';
+                    document.getElementById('bottomText').style.display = 'none';
+                    document.getElementById('name').style.display = 'block';
+                    document.getElementById('secret').style.display = 'block';
+                    document.getElementById('name').innerHTML = "Name: "+name1;
+                    document.getElementById('email').innerHTML = "Email: "+email1;
+                    document.getElementById('secret').innerHTML = "Secret: "+secret1;
                 }
             }
             
