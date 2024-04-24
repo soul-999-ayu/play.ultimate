@@ -8,6 +8,8 @@ var username;
 function loginLayoutFunction(){
     document.getElementById('button').value='register';
     document.getElementById("AlertMessage").style.display = "none";
+    document.getElementById('phone').style.display = 'none';
+    document.getElementById('phoneInput').style.display = 'none';
     document.getElementById('email').style.display = 'block';
     document.getElementById('emailInput').style.display = 'block';
     document.getElementById('password').style.display = 'block';
@@ -22,6 +24,9 @@ function loginLayoutFunction(){
 }
 
 function registerLayoutFunction(){
+    document.getElementById('button').value='register';
+    document.getElementById('phone').style.display = 'block';
+    document.getElementById('phoneInput').style.display = 'block';
     document.getElementById('name').style.display = 'block';
     document.getElementById('nameInput').style.display = 'block';
     document.getElementById('secret').style.display = 'block';
@@ -36,8 +41,9 @@ function register(){
         var name = document.getElementById('nameInput');
         var email = document.getElementById('emailInput');
         var password = document.getElementById('passwordInput');
+        var phone = document.getElementById('phoneInput');
         var secret = document.getElementById('secretInput');
-        if(name.value.toString() == '' || email.value.toString() == '' || password.value.toString() == '' || secret.value.toString() == ''){
+        if(name.value.toString() == '' || email.value.toString() == '' || password.value.toString() == '' || secret.value.toString() == '' || phone.value.toString() == ''){
             document.getElementById("AlertMessage").style.display = "block";
             document.getElementById('AlertContent').innerHTML = "The form is not completely filled!";
         }
@@ -48,6 +54,10 @@ function register(){
         else if(password.value.toString().length<8){
             document.getElementById("AlertMessage").style.display = "block";
             document.getElementById('AlertContent').innerHTML = "Password must be of at least 8 characters!";
+        }
+        else if(phone.value.toString().length!=10){
+            document.getElementById("AlertMessage").style.display = "block";
+            document.getElementById('AlertContent').innerHTML = "Phone number must be valid!";
         }
         else{
             let emailFound = 'no';
@@ -65,7 +75,9 @@ function register(){
 
                 if(emailFound=='no'){
                     username = document.getElementById('nameInput').value.toString();
-    
+                    
+                    document.getElementById('phone').style.display = "none";
+                    document.getElementById('phoneInput').style.display = "none";
                     document.getElementById('email').style.display = "none";
                     document.getElementById('emailInput').style.display = "none";
                     document.getElementById('password').style.display = "none";
@@ -110,6 +122,7 @@ function register(){
             var email = document.getElementById('emailInput');
             var password = document.getElementById('passwordInput');
             var secret = document.getElementById('secretInput');
+            var phone = document.getElementById('phoneInput');
 
             var form1 = document.createElement('form');
             form1.id = "google-sheet";
@@ -130,7 +143,13 @@ function register(){
             password1.setAttribute('name', 'Password');
             password1.setAttribute('value', password.value.toString());
             form1.appendChild(password1);
-    
+            
+            var phone1 = document.createElement('input');
+            phone1.setAttribute('type', 'text');
+            phone1.setAttribute('name', 'Phone');
+            phone1.setAttribute('value', phone.value.toString());
+            form1.appendChild(phone1);
+
             var secret1 = document.createElement('input');
             secret1.setAttribute('type', 'text');
             secret1.setAttribute('name', 'Secret');
@@ -189,6 +208,7 @@ function login(){
         var password1;
         var name1;
         var secret1;
+        var phone1;
 
         document.getElementById("button").disabled = true; 
 
@@ -201,6 +221,7 @@ function login(){
                     password1=data["content"][i][2];
                     name1=data["content"][i][1];
                     secret1=data["content"][i][3];
+                    phone1=data["content"][i][4];
                     break;
                 }
             }
@@ -222,9 +243,11 @@ function login(){
                     document.getElementById('button').style.display = 'none';
                     document.getElementById('bottomText').style.display = 'none';
                     document.getElementById('name').style.display = 'block';
+                    document.getElementById('phone').style.display = 'block';
                     document.getElementById('secret').style.display = 'block';
                     document.getElementById('name').innerHTML = "Name: "+name1;
                     document.getElementById('email').innerHTML = "Email: "+email1;
+                    document.getElementById('phone').innerHTML = "Phone: "+phone1;
                     document.getElementById('secret').innerHTML = "Secret: "+secret1;
                 }
             }
