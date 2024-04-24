@@ -1,5 +1,5 @@
 # play.ultimate
-An internship task project created by Ayush. Time taken to complete: 12Hours
+An internship task project created by Ayush. Time taken to complete: 15Hours
 
 ## Technologies used:
 HTML, CSS, JavaScript

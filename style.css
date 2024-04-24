@@ -133,6 +133,17 @@
     background-color: #d59bf6;
 }
 
+#passwordInput{
+    padding-left: 25px;
+}
+
+.passIcon{
+    margin-top: -50px; 
+    margin-left: 5px;
+    font-size: 15px;
+    opacity: 0.6;
+}
+
 @media (min-width: 800px){
     .mainDiv {
         height: 180%;
@@ -172,5 +183,10 @@
 
     .alignmentDiv{
         margin-top: 30%;
+    }
+
+    .passIcon{
+        margin-top: -42px;
+        font-size: 12px;
     }
 }

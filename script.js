@@ -255,3 +255,20 @@ function login(){
         });
     }
 }
+
+function seePass(){
+    if(document.getElementById('passwordInput').type=="password"){
+        document.getElementById('passwordInput').type="text";
+        document.getElementById('passEye').classList.remove("fas");
+        document.getElementById('passEye').classList.remove("fa-eye");
+        document.getElementById('passEye').classList.add("fa-solid");
+        document.getElementById('passEye').classList.add("fa-eye-slash");
+    }
+    else{
+        document.getElementById('passwordInput').type="password";
+        document.getElementById('passEye').classList.add("fas");
+        document.getElementById('passEye').classList.add("fa-eye");
+        document.getElementById('passEye').classList.remove("fa-solid");
+        document.getElementById('passEye').classList.remove("fa-eye-slash");
+    }
+}
