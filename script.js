@@ -6,6 +6,8 @@ var otp;
 var username;
 
 function loginLayoutFunction(){
+    document.getElementById('passEye').classList.add("passIcon2");
+    document.getElementById('passEye').classList.remove("passIcon");
     document.getElementById('button').value='register';
     document.getElementById("AlertMessage").style.display = "none";
     document.getElementById('phone').style.display = 'none';
@@ -24,6 +26,8 @@ function loginLayoutFunction(){
 }
 
 function registerLayoutFunction(){
+    document.getElementById('passEye').classList.add("passIcon");
+    document.getElementById('passEye').classList.remove("passIcon2");
     document.getElementById('button').value='register';
     document.getElementById('phone').style.display = 'block';
     document.getElementById('phoneInput').style.display = 'block';

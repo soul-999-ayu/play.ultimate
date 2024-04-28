@@ -138,7 +138,7 @@
     padding-left: 24px;
 }
 
-.passIcon{
+.passIcon, .passIcon2{
     margin-top: -33px; 
     margin-left: 5px;
     font-size: 15px;
@@ -188,6 +188,11 @@
 
     .passIcon{
         margin-top: -23px;
+        font-size: 12px;
+    }
+
+    .passicon2{
+        margin-top: -18px;
         font-size: 12px;
     }
 }
