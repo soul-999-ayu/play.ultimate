@@ -5,4 +5,4 @@ An internship task project created by Ayush. Time taken to complete: 14Hours
 HTML, CSS, JavaScript
 
 ## Credits:
-Background image: https://surveysparrow.com/blog/tips-for-a-catchy-sports-registration-form-template/
+Background image: https://site.surveysparrow.com/wp-content/uploads/2023/04/Sports-Registration-form-template.png
