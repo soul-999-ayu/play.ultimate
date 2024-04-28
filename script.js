@@ -26,8 +26,6 @@ function loginLayoutFunction(){
 }
 
 function registerLayoutFunction(){
-    document.getElementById('passEye').classList.add("passIcon");
-    document.getElementById('passEye').classList.remove("passIcon2");
     document.getElementById('button').value='register';
     document.getElementById('phone').style.display = 'block';
     document.getElementById('phoneInput').style.display = 'block';
@@ -38,6 +36,8 @@ function registerLayoutFunction(){
     document.getElementById('button').innerHTML = 'Register';
     document.getElementById('button').setAttribute('onclick', 'register()');
     document.getElementById('bottomText').innerHTML = 'One of us? <a onclick="loginLayoutFunction()">Login with credentials</a>';
+    document.getElementById('passEye').classList.remove("passIcon2");
+    document.getElementById('passEye').classList.add("passIcon");
 }
 
 function register(){
