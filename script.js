@@ -253,6 +253,7 @@ function login(){
                     document.getElementById('email').innerHTML = "Email: "+email1;
                     document.getElementById('phone').innerHTML = "Phone: "+phone1;
                     document.getElementById('secret').innerHTML = "Secret: "+secret1;
+                    document.getElementById('passEye').style.display = "none";
                 }
             }
             
